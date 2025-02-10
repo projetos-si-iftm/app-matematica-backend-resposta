@@ -150,9 +150,11 @@ mvn spring-boot:run
 - `dificuldade` (int): Nível de dificuldade.
 - **Exemplo de requisição**: /report/round/search?id_categoria={id_categoria}&dificuldade={dificuldade}
 - **Resposta**:
+- Status: 200 OK
 - Corpo da Resposta:
 ```json
-    {
+    [
+        {
         "id_rodada": "123e4567-e89b-12d3-a456-426614174001",
         "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
         "dificuldade": 1,
