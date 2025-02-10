@@ -44,9 +44,10 @@ Certifique-se de que o MongoDB esteja em execução e configurado corretamente. 
 
 Para compilar e executar o projeto, use os seguintes comandos:
 
+```bash
 mvn clean install
 mvn spring-boot:run
-
+```
 # Endpoints
 ## Rodada
 
