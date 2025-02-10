@@ -1,0 +1,6 @@
+# spring.application.name=app_ensino_matematica_backend_resposta
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://professor:coxinha123@app-matematica.5bpla.mongodb.net/
+      database: app-ensino-matematica-backend-resposta
