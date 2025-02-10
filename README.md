@@ -116,7 +116,6 @@ mvn spring-boot:run
     "id_categoria": "estatistica",
     "dificuldade": 1,
     "pontuacao": 85,
-    "finalizada": true,
     "respostas": [
         {
             "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
@@ -157,7 +156,6 @@ mvn spring-boot:run
         "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
         "dificuldade": 1,
         "pontuacao": 85,
-        "finalizada": true,
         "respostas": [
             {
                 "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
