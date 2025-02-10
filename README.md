@@ -54,7 +54,7 @@ mvn spring-boot:run
 ### POST /report/round
 - **Descrição**:  Salva uma nova rodada com a lista de respostas.
 - **Resposta**:
-- Status: 200 OK
+- Status: 201 CREATED
 - Corpo da resposta: 
 ```json
 {
