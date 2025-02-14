@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class RodadaDTO {
         private UUID id_rodada;
         private UUID idCategoria;
+        private UUID idAluno;
         private int dificuldade;
         private List<Resposta> respostas;
         private int pontuacao;
@@ -23,6 +24,7 @@ public class RodadaDTO {
             RodadaDTO rodadaDTO = new RodadaDTO();
             rodadaDTO.setId_rodada(rodada.getId_rodada());
             rodadaDTO.setRespostas(rodada.getRespostas());
+            rodadaDTO.setIdAluno(rodada.getIdAluno());
             rodadaDTO.setPontuacao(rodada.getPontuacao());
             rodadaDTO.setIdCategoria(rodada.getIdCategoria());
             rodadaDTO.setDificuldade(rodada.getDificuldade());

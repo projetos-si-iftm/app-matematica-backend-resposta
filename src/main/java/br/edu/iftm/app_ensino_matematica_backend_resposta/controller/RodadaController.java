@@ -38,4 +38,9 @@ public class RodadaController {
     public List<Rodada> getRodadaByIdCategoriaAndDificuldade(@RequestParam UUID idCategoria, @RequestParam int dificuldade) {
         return rodadaService.getRodadaByIdCategoriaAndDificuldade(idCategoria, dificuldade);
     }
+
+    @GetMapping("/searchByCategoriaAndAluno")
+    public List<Rodada> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam UUID idAluno) {
+        return rodadaService.getRodadaByIdCategoriaAndIdAluno(idCategoria, idAluno);
+    }
 }

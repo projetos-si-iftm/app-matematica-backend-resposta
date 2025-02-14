@@ -25,10 +25,15 @@ public class RodadaService {
         return rodadaRepository.findByIdCategoriaAndDificuldade(idCategoria, dificuldade);
     }
 
+    public List<Rodada> getRodadaByIdCategoriaAndIdAluno(UUID idCategoria, UUID idAluno) {
+        return rodadaRepository.findByIdCategoriaAndIdAluno(idCategoria, idAluno);
+    }
+
     public RodadaDTO saveRodada(RodadaDTO rodadaDTO, List<Resposta> respostas) {
         Rodada rodada = new Rodada();
         rodada.setId_rodada(UUID.randomUUID()); // Gera um UUID aleatório para id_rodada
         rodada.setIdCategoria(rodadaDTO.getIdCategoria());
+        rodada.setIdAluno(rodadaDTO.getIdAluno());
         rodada.setDificuldade(rodadaDTO.getDificuldade());
         rodada.setPontuacao(rodadaDTO.getPontuacao());
         rodada.setRespostas(respostas); // Adiciona a lista de respostas

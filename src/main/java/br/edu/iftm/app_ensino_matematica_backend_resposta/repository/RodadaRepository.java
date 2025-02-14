@@ -9,4 +9,5 @@ import br.edu.iftm.app_ensino_matematica_backend_resposta.model.Rodada;
 
 public interface RodadaRepository extends MongoRepository<Rodada, UUID> {
     List<Rodada> findByIdCategoriaAndDificuldade(UUID id_categoria, int dificuldade);
+    List<Rodada> findByIdCategoriaAndIdAluno(UUID idCategoria, UUID idAluno);
 }

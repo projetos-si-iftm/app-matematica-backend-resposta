@@ -18,6 +18,7 @@ public class Rodada {
     @Id
     private UUID id_rodada;
     private UUID idCategoria;
+    private UUID idAluno;
     private int dificuldade;
     private List<Resposta> respostas;
     private int pontuacao;
