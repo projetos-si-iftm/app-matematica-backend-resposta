@@ -27,6 +27,42 @@ O projeto está organizado nas seguintes pastas:
 - `model`: Contém as classes de modelo que representam os dados.
 - `repository`: Contém as interfaces de repositório para acesso ao banco de dados.
 - `service`: Contém as classes de serviço que implementam a lógica de negócios.
+  
+```bash
+  src/
+├── main/
+│   ├── java/
+│   │   └── br/
+│   │       └── edu/
+│   │           └── iftm/
+│   │               └── app_ensino_matematica_backend_resposta/
+│   │                   ├── config/
+│   │                   │   └── WebConfig.java
+│   │                   ├── controller/
+│   │                   │   └── RodadaController.java
+│   │                   ├── model/
+│   │                   │   ├── Resposta.java
+│   │                   │   ├── Rodada.java
+│   │                   │   └── DTO/
+│   │                   │       └── RodadaDTO.java
+│   │                   │       └── RodadaRequest.java
+│   │                   ├── repository/
+│   │                   │      └── RodadaDTO.java
+│   │                   ├── service/
+│   │                   │      └── RodadaService.java
+│   │                   └── AppEnsinoMatematicaBackendRespostaoApplication.java
+│   └── resources/
+│       ├── application.yml
+│       
+│           
+└── test/
+    └── java/
+        └── br/
+            └── edu/
+                └── iftm/
+                    └── app_ensino_matematica_backend_resposta/
+                        └── AppEnsinoMatematicaBackendRespostaApplicationTests.java
+```
 
 ## Configuração do Ambiente
 
