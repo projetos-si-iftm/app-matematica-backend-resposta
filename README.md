@@ -59,44 +59,25 @@ mvn spring-boot:run
 ```json
 {
     "rodada": {
-        "id_categoria": "estatistica",
+        "idCategoria": "123e4567-e89b-12d3-a456-426614174000",
+        "idAluno": "123e4567-e89b-12d3-a456-426614174001",
         "dificuldade": 1,
         "pontuacao": 85
     },
     "respostas": [
         {
             "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
             "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174003",
             "isCorrect": false
         },
         {
             "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174005",
             "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174007",
             "isCorrect": false
         },
         {
             "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174009",
             "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174011",
-            "isCorrect": true
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174012",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174013",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174014",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174015",
-            "isCorrect": false
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174016",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174017",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174018",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174019",
             "isCorrect": true
         }
     ]
@@ -112,35 +93,32 @@ mvn spring-boot:run
 - Corpo da resposta:
   
 ```json
-{
-    "id_rodada": "123e4567-e89b-12d3-a456-426614174000",
-    "id_categoria": "estatistica",
-    "dificuldade": 1,
-    "pontuacao": 85,
-    "respostas": [
+  [
         {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174003",
-            "isCorrect": false
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174005",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174007",
-            "isCorrect": false
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-            "id_aluno": "223e4567-e89b-12d3-a456-426614174009",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-            "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174011",
-            "isCorrect": true
-        }
-    ]
-}
+        "id_rodada": "123e4567-e89b-12d3-a456-426614174001",
+        "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
+        "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
+        "dificuldade": 1,
+        "pontuacao": 85,
+        "respostas": [
+            {
+                "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
+                "id_questao": "223e4567-e89b-12d3-a456-426614174002",
+                "isCorrect": false
+            },
+            {
+                "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
+                "id_questao": "223e4567-e89b-12d3-a456-426614174006",
+                "isCorrect": false
+            },
+            {
+                "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
+                "id_questao": "223e4567-e89b-12d3-a456-426614174010",
+                "isCorrect": true
+            }
+        ]
+    }
+]
 ```
 
 ### GET /report/round/search 
@@ -157,28 +135,23 @@ mvn spring-boot:run
         {
         "id_rodada": "123e4567-e89b-12d3-a456-426614174001",
         "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
+        "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
         "dificuldade": 1,
         "pontuacao": 85,
         "respostas": [
             {
                 "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-                "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
                 "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-                "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174003",
                 "isCorrect": false
             },
             {
                 "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-                "id_aluno": "223e4567-e89b-12d3-a456-426614174005",
                 "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-                "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174007",
                 "isCorrect": false
             },
             {
                 "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-                "id_aluno": "223e4567-e89b-12d3-a456-426614174009",
                 "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-                "alternativa_escolhida": "223e4567-e89b-12d3-a456-426614174011",
                 "isCorrect": true
             }
         ]
