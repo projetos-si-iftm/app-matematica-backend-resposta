@@ -19,6 +19,12 @@ Este é o backend de um aplicativo de ensino de matemática feito para a comunid
 - Lombok
 - MongoDB
 
+### Por que utilizar MongoDB (banco NOSQL)?
+- MongoDB oferece uma abordagem de consulta direta, usando filtros baseados em JSON ou BSON. Isso significa que você pode fazer buscas de maneira simples, sem a complexidade das joins de bancos SQL.
+- No MongoDB, você pode armazenar dados sem se preocupar com a criação de muitas tabelas ou coleções adicionais, como ocorre em bancos relacionais para normalização. A estrutura de dados no MongoDB (documentos JSON) já permite agrupar informações relacionadas em um único documento, sem a necessidade de muitas referências ou tabelas extras.
+- MongoDB é altamente flexível quando se trata de salvar dados. Não há necessidade de seguir um esquema fixo. Se você quiser adicionar novos campos ou novos tipos de dados (por exemplo, um novo tipo de pergunta ou uma nova categoria), você pode fazer isso sem grandes mudanças ou migrações no banco de dados. Isso permite que você se adapte rapidamente a novos requisitos ou alterações no modelo de dados.
+- MongoDB é projetado para otimizar o desempenho em grandes volumes de dados, especialmente quando se trata de leitura e gravação rápidas. Ele oferece recursos como índices para acelerar as buscas, o que é essencial em sistemas que lidam com muitos documentos, como um banco de respostas de questões.
+
 ## Estrutura do Projeto
 
 O projeto está organizado nas seguintes pastas:
