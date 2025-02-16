@@ -18,7 +18,9 @@ public class RodadaService {
 
 
     public Rodada getRodadaById(UUID id_rodada) {
+        
         return rodadaRepository.findById(id_rodada).orElse(null);
+
     }
 
     public List<Rodada> getRodadaByIdCategoriaAndDificuldade(UUID idCategoria, int dificuldade) {
