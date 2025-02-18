@@ -3,12 +3,14 @@ package br.edu.iftm.app_ensino_matematica_backend_resposta.controller;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -25,21 +27,25 @@ public class RodadaController {
     private final RodadaService rodadaService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public RodadaDTO saveRodada(@RequestBody RodadaRequest rodadaRequest) {
         return rodadaService.saveRodada(rodadaRequest.getRodada(), rodadaRequest.getRespostas());
     }
 
     @GetMapping("/{id_rodada}")
+    @ResponseStatus(HttpStatus.OK)
     public RodadaDTO getRodadaById(@PathVariable UUID id_rodada) {
         return RodadaDTO.convert(rodadaService.getRodadaById(id_rodada));
     }
 
     @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
     public List<Rodada> getRodadaByIdCategoriaAndDificuldade(@RequestParam UUID idCategoria, @RequestParam int dificuldade) {
         return rodadaService.getRodadaByIdCategoriaAndDificuldade(idCategoria, dificuldade);
     }
 
     @GetMapping("/searchByCategoriaAndAluno")
+    @ResponseStatus(HttpStatus.OK)
     public List<Rodada> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam UUID idAluno) {
         return rodadaService.getRodadaByIdCategoriaAndIdAluno(idCategoria, idAluno);
     }
