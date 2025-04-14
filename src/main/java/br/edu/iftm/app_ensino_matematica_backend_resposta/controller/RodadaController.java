@@ -20,15 +20,20 @@ import br.edu.iftm.app_ensino_matematica_backend_resposta.model.DTO.RodadaReques
 import br.edu.iftm.app_ensino_matematica_backend_resposta.service.RodadaService;
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/report/round")
 public class RodadaController {
+    private static final Logger log = LoggerFactory.getLogger(RodadaController.class);
     private final RodadaService rodadaService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RodadaDTO saveRodada(@RequestBody RodadaRequest rodadaRequest) {
+        log.info("Recebendo requisição: {}", rodadaRequest);
         return rodadaService.saveRodada(rodadaRequest.getRodada(), rodadaRequest.getRespostas());
     }
 
@@ -49,4 +54,10 @@ public class RodadaController {
     public List<Rodada> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam UUID idAluno) {
         return rodadaService.getRodadaByIdCategoriaAndIdAluno(idCategoria, idAluno);
     }
+
+    @GetMapping("/highestScore")
+    @ResponseStatus(HttpStatus.OK)
+    public Rodada getRodadaComMaiorPontuacao(@RequestParam UUID idAluno) {
+    return rodadaService.getRodadaComMaiorPontuacao(idAluno);
+}
 }

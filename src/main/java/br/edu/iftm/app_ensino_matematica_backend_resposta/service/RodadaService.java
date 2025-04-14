@@ -42,4 +42,8 @@ public class RodadaService {
         rodada = rodadaRepository.save(rodada);
         return RodadaDTO.convert(rodada);
     }
+
+    public Rodada getRodadaComMaiorPontuacao(UUID idAluno) {
+        return rodadaRepository.findTopByIdAlunoOrderByPontuacaoDesc(idAluno).orElse(null);
+    }
 }
