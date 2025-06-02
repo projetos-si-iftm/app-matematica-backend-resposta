@@ -1,6 +1,18 @@
 # spring.application.name=app_ensino_matematica_backend_resposta
+server:
+  port: 8082
 spring:
+  application:
+    name: resposta
   data:
     mongodb:
       uri: mongodb+srv://professor:coxinha123@app-matematica.5bpla.mongodb.net/
       database: app-ensino-matematica-backend-resposta
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+        fetch-registry: true
+        register-with-eureka: true
+        instance:
+            prefer-ip-address: true
