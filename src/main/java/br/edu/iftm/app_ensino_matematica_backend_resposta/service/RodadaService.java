@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RodadaService {
 
-    private RodadaRepository rodadaRepository;
+    private final RodadaRepository rodadaRepository;
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Rodada getRodadaById(UUID id_rodada) {
