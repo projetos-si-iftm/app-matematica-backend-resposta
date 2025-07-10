@@ -6,7 +6,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import br.edu.iftm.app_ensino_matematica_backend_resposta.model.DTO.RodadaDTO;
+import com.example.dtos.RodadaDTO;
+
+import br.edu.iftm.app_ensino_matematica_backend_resposta.converter.RodadaConverter;
 import br.edu.iftm.app_ensino_matematica_backend_resposta.model.Resposta;
 import br.edu.iftm.app_ensino_matematica_backend_resposta.model.Rodada;
 import br.edu.iftm.app_ensino_matematica_backend_resposta.repository.RodadaRepository;
@@ -20,9 +22,7 @@ public class RodadaService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Rodada getRodadaById(UUID id_rodada) {
-
         return rodadaRepository.findById(id_rodada).orElse(null);
-
     }
 
     public List<Rodada> getRodadaByIdCategoriaAndDificuldade(UUID idCategoria, int dificuldade) {
@@ -55,7 +55,9 @@ public class RodadaService {
         //     String url = "http://localhost:3004/manage/question";
         //     restTemplate.postForObject(url, null, String.class);
         // }
-        return RodadaDTO.convert(rodada);
+        
+        // Usando o novo converter
+        return RodadaConverter.convert(rodada);
     }
 
     public Rodada getRodadaComMaiorPontuacao(UUID idAluno) {
