@@ -1,10 +1,12 @@
 package br.edu.iftm.app_ensino_matematica_backend_resposta.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.example.dtos.RodadaDTO;
 
@@ -19,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class RodadaService {
 
     private final RodadaRepository rodadaRepository;
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public Rodada getRodadaById(UUID id_rodada) {
         return rodadaRepository.findById(id_rodada).orElse(null);
@@ -55,12 +56,27 @@ public class RodadaService {
         //     String url = "http://localhost:3004/manage/question";
         //     restTemplate.postForObject(url, null, String.class);
         // }
-        
         // Usando o novo converter
         return RodadaConverter.convert(rodada);
     }
 
-    public Rodada getRodadaComMaiorPontuacao(UUID idAluno) {
-        return rodadaRepository.findTopByIdAlunoOrderByPontuacaoDesc(idAluno).orElse(null);
+    public Rodada getRodadaComMaiorPontuacaoPorCategoriaEDificuldade(UUID idAluno, UUID idCategoria, int dificuldade) {
+        return rodadaRepository.findTopByIdAlunoAndIdCategoriaAndDificuldadeOrderByPontuacaoDesc(idAluno, idCategoria, dificuldade).orElse(null);
     }
+
+// Método para buscar melhores rodadas de todos os alunos (para ranking)
+    public List<Rodada> getMelhoresRodadasParaRanking() {
+        List<Rodada> todasRodadas = rodadaRepository.findAll();
+
+        // Agrupar por aluno + categoria + dificuldade e pegar só a maior pontuação
+        Map<String, Rodada> melhoresRodadas = todasRodadas.stream()
+                .collect(Collectors.toMap(
+                        rodada -> rodada.getIdAluno() + "_" + rodada.getIdCategoria() + "_" + rodada.getDificuldade(),
+                        rodada -> rodada,
+                        (existente, nova) -> existente.getPontuacao() > nova.getPontuacao() ? existente : nova
+                ));
+
+        return new ArrayList<>(melhoresRodadas.values());
+    }
+
 }

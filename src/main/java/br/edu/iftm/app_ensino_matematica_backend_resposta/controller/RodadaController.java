@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dtos.RodadaDTO;
-import com.example.dtos.RodadaRequestDTO;
+import com.example.dtos.*;
 
 import br.edu.iftm.app_ensino_matematica_backend_resposta.converter.RespostaConverter;
 import br.edu.iftm.app_ensino_matematica_backend_resposta.converter.RodadaConverter;
@@ -30,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/report/round")
 public class RodadaController {
+
     private static final Logger log = LoggerFactory.getLogger(RodadaController.class);
     private final RodadaService rodadaService;
 
@@ -37,12 +37,12 @@ public class RodadaController {
     @ResponseStatus(HttpStatus.CREATED)
     public RodadaDTO saveRodada(@RequestBody RodadaRequestDTO rodadaRequest) {
         log.info("Recebendo requisição: {}", rodadaRequest);
-        
+
         // Converter List<RespostaDTO> para List<Resposta>
         List<Resposta> respostas = rodadaRequest.getRespostas().stream()
-            .map(RespostaConverter::convertToEntity)
-            .collect(Collectors.toList());
-        
+                .map(RespostaConverter::convertToEntity)
+                .collect(Collectors.toList());
+
         return rodadaService.saveRodada(rodadaRequest.getRodada(), respostas);
     }
 
@@ -58,8 +58,8 @@ public class RodadaController {
     public List<RodadaDTO> getRodadaByIdCategoriaAndDificuldade(@RequestParam UUID idCategoria, @RequestParam int dificuldade) {
         List<Rodada> rodadas = rodadaService.getRodadaByIdCategoriaAndDificuldade(idCategoria, dificuldade);
         return rodadas.stream()
-            .map(RodadaConverter::convert)
-            .collect(Collectors.toList());
+                .map(RodadaConverter::convert)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/searchByCategoriaAndAluno")
@@ -67,14 +67,18 @@ public class RodadaController {
     public List<RodadaDTO> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam UUID idAluno) {
         List<Rodada> rodadas = rodadaService.getRodadaByIdCategoriaAndIdAluno(idCategoria, idAluno);
         return rodadas.stream()
-            .map(RodadaConverter::convert)
-            .collect(Collectors.toList());
+                .map(RodadaConverter::convert)
+                .collect(Collectors.toList());
     }
 
-    @GetMapping("/highestScore")
+    @GetMapping("/highestScore/categoria")
     @ResponseStatus(HttpStatus.OK)
-    public RodadaDTO getRodadaComMaiorPontuacao(@RequestParam UUID idAluno) {
-        Rodada rodada = rodadaService.getRodadaComMaiorPontuacao(idAluno);
+    public RodadaDTO getRodadaComMaiorPontuacaoPorCategoria(
+            @RequestParam UUID idAluno,
+            @RequestParam UUID idCategoria,
+            @RequestParam int dificuldade) {
+
+        Rodada rodada = rodadaService.getRodadaComMaiorPontuacaoPorCategoriaEDificuldade(idAluno, idCategoria, dificuldade);
         return rodada != null ? RodadaConverter.convert(rodada) : null;
     }
 }
