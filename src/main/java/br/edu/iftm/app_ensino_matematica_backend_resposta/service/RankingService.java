@@ -2,7 +2,6 @@ package br.edu.iftm.app_ensino_matematica_backend_resposta.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -22,16 +21,16 @@ public class RankingService {
     private final RodadaService rodadaService;
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private static final String USUARIO_SERVICE_URL = "http://usuario";
+    private static final String USUARIO_SERVICE_URL = "http://localhost:8080";
 
     public List<RankingDTO> calcularRankingGeral(){
         List<Rodada> melhoresRodadas = rodadaService.getMelhoresRodadasParaRanking();
 
-        // FILTRAR rodadas com idAluno nulo antes do agrupamento
-        Map<UUID, Integer> pontuacoesPorAluno = melhoresRodadas.stream()
-            .filter(rodada -> rodada.getIdAluno() != null) // ← ADICIONAR ESTE FILTRO
+        // FILTRAR rodadas com idAluno nulo e agrupar por String (não UUID)
+        Map<String, Integer> pontuacoesPorAluno = melhoresRodadas.stream()
+            .filter(rodada -> rodada.getIdAluno() != null)
             .collect(Collectors.groupingBy(
-                Rodada::getIdAluno,
+                Rodada::getIdAluno,  // Agora retorna String
                 Collectors.summingInt(Rodada::getPontuacao)
             ));
         
@@ -41,7 +40,7 @@ public class RankingService {
             .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
             .map(entry -> {
                 RankingDTO ranking = RankingDTO.builder()
-                    .idAluno(entry.getKey().toString())
+                    .idAluno(entry.getKey())  // Já é String, não precisa de toString()
                     .pontuacao(entry.getValue())
                     .posicao(posicao.getAndIncrement())
                     .build();
@@ -56,26 +55,40 @@ public class RankingService {
     
     private void enriquecerComDadosUsuario(RankingDTO ranking) {
         try {
-            // Buscar dados do aluno
+            // ← CORRIGIR: URL COMPLETA com path base do controller
             String alunoUrl = USUARIO_SERVICE_URL + "/api/v1/estudante/" + ranking.getIdAluno();
+            
+            System.out.println("=== DEBUG RANKING SERVICE ===");
+            System.out.println("URL do estudante: " + alunoUrl);
+            
             EstudanteDTO estudante = restTemplate.getForObject(alunoUrl, EstudanteDTO.class);
+            
+            System.out.println("Estudante retornado: " + estudante);
             
             if (estudante != null) {
                 ranking.setNomeAluno(estudante.getNome());
-                ranking.setMatricula(estudante.getMatricula());
-                ranking.setFotoUrl(estudante.getFotoUrl());
                 ranking.setTurmaId(estudante.getTurmaId().toString());
                 
-                // Buscar nome da turma - CORRIGIR: faltava "/" antes de "api"
+                // ← CORRIGIR: URL COMPLETA para turma
                 String turmaUrl = USUARIO_SERVICE_URL + "/api/v1/turma/" + estudante.getTurmaId();
+                System.out.println("URL da turma: " + turmaUrl);
+                
                 TurmaDTO turma = restTemplate.getForObject(turmaUrl, TurmaDTO.class);
+                
+                System.out.println("Turma retornada: " + turma);
                 
                 if (turma != null) {
                     ranking.setNomeTurma(turma.getNomeTurma());
                 }
+            } else {
+                System.out.println("Estudante retornou NULL");
             }
+            
+            System.out.println("=== FIM DEBUG ===");
+            
         } catch (Exception e) {
             System.err.println("Erro ao buscar dados do aluno " + ranking.getIdAluno() + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

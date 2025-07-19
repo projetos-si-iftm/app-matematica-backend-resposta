@@ -15,10 +15,10 @@ public interface RodadaRepository extends MongoRepository<Rodada, UUID> {
 
     List<Rodada> findByIdCategoriaAndDificuldade(UUID idCategoria, int dificuldade);
 
-    List<Rodada> findByIdCategoriaAndIdAluno(UUID idCategoria, UUID idAluno);
+    List<Rodada> findByIdCategoriaAndIdAluno(UUID idCategoria, String idAluno);
 
-    Optional<Rodada> findTopByIdAlunoOrderByPontuacaoDesc(UUID idAluno);
+    Optional<Rodada> findTopByIdAlunoOrderByPontuacaoDesc(String idAluno);
 
     @Query("{ 'idAluno': ?0, 'idCategoria': ?1, 'dificuldade': ?2 }")
-    Optional<Rodada> findTopByIdAlunoAndIdCategoriaAndDificuldadeOrderByPontuacaoDesc(UUID idAluno, UUID idCategoria, int dificuldade);
+    Optional<Rodada> findTopByIdAlunoAndIdCategoriaAndDificuldadeOrderByPontuacaoDesc(String idAluno, UUID idCategoria, int dificuldade);
 }

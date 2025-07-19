@@ -1,5 +1,8 @@
 package br.edu.iftm.app_ensino_matematica_backend_resposta.converter;
+import java.util.UUID;
+
 import com.example.dtos.RespostaDTO;
+
 import br.edu.iftm.app_ensino_matematica_backend_resposta.model.Resposta;
 public class RespostaConverter {
     
@@ -13,7 +16,7 @@ public class RespostaConverter {
 
     public static Resposta convertToEntity(RespostaDTO respostaDTO) {
         Resposta resposta = new Resposta();
-        resposta.setId_resposta(respostaDTO.getId_resposta());
+        resposta.setId_resposta(UUID.randomUUID());
         resposta.setId_questao(respostaDTO.getId_questao());
         resposta.setIsCorrect(respostaDTO.getIsCorrect());
         return resposta;

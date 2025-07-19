@@ -30,37 +30,33 @@ public class RodadaService {
         return rodadaRepository.findByIdCategoriaAndDificuldade(idCategoria, dificuldade);
     }
 
-    public List<Rodada> getRodadaByIdCategoriaAndIdAluno(UUID idCategoria, UUID idAluno) {
+    public List<Rodada> getRodadaByIdCategoriaAndIdAluno(UUID idCategoria, String idAluno) {
         return rodadaRepository.findByIdCategoriaAndIdAluno(idCategoria, idAluno);
     }
 
+// No RodadaService - método findTopByIdAlunoOrderByPontuacaoDesc
     public RodadaDTO saveRodada(RodadaDTO rodadaDTO, List<Resposta> respostas) {
-        // Busca a rodada com maior pontuação do aluno
+        // Busca a rodada com maior pontuação do aluno - agora String
         Rodada rodadaAnterior = rodadaRepository.findTopByIdAlunoOrderByPontuacaoDesc(rodadaDTO.getIdAluno()).orElse(null);
 
         // Se existe uma rodada anterior e a pontuação atual não é maior, não salva
         if (rodadaAnterior != null && rodadaDTO.getPontuacao() <= rodadaAnterior.getPontuacao()) {
-            System.out.println("rodada anterior maior que atual"); // Ou lance uma exceção, ou retorne uma mensagem de erro, conforme sua regra de negócio
+            System.out.println("rodada anterior maior que atual");
         }
 
         Rodada rodada = new Rodada();
         rodada.setId_rodada(UUID.randomUUID());
         rodada.setIdCategoria(rodadaDTO.getIdCategoria());
-        rodada.setIdAluno(rodadaDTO.getIdAluno());
+        rodada.setIdAluno(rodadaDTO.getIdAluno()); // Agora String
         rodada.setDificuldade(rodadaDTO.getDificuldade());
         rodada.setPontuacao(rodadaDTO.getPontuacao());
         rodada.setRespostas(respostas);
         rodada = rodadaRepository.save(rodada);
 
-        // if (rodadaAnterior != null && rodadaAnterior.getPontuacao() < 60 && rodada.getPontuacao() >= 60 || rodadaAnterior == null && rodada.getPontuacao() > 60) {
-        //     String url = "http://localhost:3004/manage/question";
-        //     restTemplate.postForObject(url, null, String.class);
-        // }
-        // Usando o novo converter
         return RodadaConverter.convert(rodada);
     }
 
-    public Rodada getRodadaComMaiorPontuacaoPorCategoriaEDificuldade(UUID idAluno, UUID idCategoria, int dificuldade) {
+    public Rodada getRodadaComMaiorPontuacaoPorCategoriaEDificuldade(String idAluno, UUID idCategoria, int dificuldade) {
         return rodadaRepository.findTopByIdAlunoAndIdCategoriaAndDificuldadeOrderByPontuacaoDesc(idAluno, idCategoria, dificuldade).orElse(null);
     }
 

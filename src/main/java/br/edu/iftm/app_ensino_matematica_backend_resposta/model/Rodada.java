@@ -22,7 +22,7 @@ public class Rodada {
     @Field(targetType = org.springframework.data.mongodb.core.mapping.FieldType.STRING)
     private UUID idCategoria;
     @Field(targetType = org.springframework.data.mongodb.core.mapping.FieldType.STRING)
-    private UUID idAluno;
+    private String idAluno;
     private int dificuldade;
     private List<Resposta> respostas;
     private int pontuacao;

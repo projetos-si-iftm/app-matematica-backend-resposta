@@ -64,7 +64,7 @@ public class RodadaController {
 
     @GetMapping("/searchByCategoriaAndAluno")
     @ResponseStatus(HttpStatus.OK)
-    public List<RodadaDTO> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam UUID idAluno) {
+    public List<RodadaDTO> getRodadaByIdCategoriaAndIdAluno(@RequestParam UUID idCategoria, @RequestParam String idAluno) {
         List<Rodada> rodadas = rodadaService.getRodadaByIdCategoriaAndIdAluno(idCategoria, idAluno);
         return rodadas.stream()
                 .map(RodadaConverter::convert)
@@ -74,7 +74,7 @@ public class RodadaController {
     @GetMapping("/highestScore/categoria")
     @ResponseStatus(HttpStatus.OK)
     public RodadaDTO getRodadaComMaiorPontuacaoPorCategoria(
-            @RequestParam UUID idAluno,
+            @RequestParam String idAluno,
             @RequestParam UUID idCategoria,
             @RequestParam int dificuldade) {
 
