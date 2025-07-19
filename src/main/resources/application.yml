@@ -1,18 +1,25 @@
-# spring.application.name=app_ensino_matematica_backend_resposta
-server:
-  port: 8082
 spring:
   application:
     name: resposta
   data:
     mongodb:
-      uri: mongodb+srv://professor:coxinha123@app-matematica.5bpla.mongodb.net/
+      uri: ${CONEXAO_MONGO_ATLAS:mongodb+srv://professor:coxinha123@app-matematica.5bpla.mongodb.net/}
       database: app-ensino-matematica-backend-resposta
+
+app:
+  base-url: ${BASE_URL:http://localhost:8082}
+
 eureka:
-    client:
-        service-url:
-            defaultZone: http://localhost:8761/eureka/
-        fetch-registry: true
-        register-with-eureka: true
-    instance:
-      prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:https://app-matematica-eureka-f69602e28e4d.herokuapp.com/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: app-matematica-backend-respost-af372f52044d.herokuapp.com
+    non-secure-port: 80
+    secure-port: 443
+    prefer-ip-address: false
+
+server:
+  port: ${PORT:8082}
