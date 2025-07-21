@@ -9,6 +9,15 @@ spring:
 app:
   base-url: ${BASE_URL:http://localhost:8082}
 
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    server-url: ${BASE_URL:http://localhost:8082} 
+  show-actuator: true
+
 eureka:
   client:
     service-url:
@@ -23,3 +32,4 @@ eureka:
 
 server:
   port: ${PORT:8082}
+  

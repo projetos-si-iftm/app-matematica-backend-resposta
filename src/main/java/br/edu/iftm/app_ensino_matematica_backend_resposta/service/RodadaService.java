@@ -34,9 +34,8 @@ public class RodadaService {
         return rodadaRepository.findByIdCategoriaAndIdAluno(idCategoria, idAluno);
     }
 
-// No RodadaService - método findTopByIdAlunoOrderByPontuacaoDesc
+
     public RodadaDTO saveRodada(RodadaDTO rodadaDTO, List<Resposta> respostas) {
-        // Busca a rodada com maior pontuação do aluno - agora String
         Rodada rodadaAnterior = rodadaRepository.findTopByIdAlunoOrderByPontuacaoDesc(rodadaDTO.getIdAluno()).orElse(null);
 
         // Se existe uma rodada anterior e a pontuação atual não é maior, não salva
