@@ -1,17 +1,29 @@
-# App Ensino Matemática Backend Resposta
+# App Ensino Matemática Backend Resposta - Socratic
 
-Este é o backend de um aplicativo educacional de matemática voltado para a comunidade externa. Ele é responsável por gerenciar, criar, atualizar e consultar recursos relacionados às rodadas de questões e ao ranking dos alunos, apoiando o acompanhamento do desempenho e da evolução dos participantes.
+Este é o backend do aplicativo educacional de matemática Socratic, o qual é voltado para a comunidade externa. Ele é responsável por gerenciar, criar, atualizar e consultar recursos relacionados às rodadas de questões e ao ranking dos alunos, apoiando o acompanhamento do desempenho e da evolução dos participantes.
 
 O sistema é composto por múltiplos microsserviços que se complementam, incluindo os serviços de 👉 [questões](https://github.com/projetos-si-iftm/app-matematica-backend-questao) e 👉 [usuários](https://github.com/projetos-si-iftm/app-matematica-backend), responsáveis respectivamente pelo gerenciamento do banco de questões e das informações dos alunos, professores e turma.
 
+- [Repositório do Aplicativo Socratic - Aluno - React Native](https://github.com/projetos-si-iftm/app-matematica-frontend)
+  
+- [Repositório da Interface Web - Professor - React ](https://github.com/projetos-si-iftm/app-matematica-frontend-professor)
+  
 ## Sumário
 
+- [Contribuidores](#contribuidores)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Configuração do Ambiente](#configuração-do-ambiente)
 - [Endpoints](#endpoints)
 - [Licença](#licença)
 
+# Contribuidores
+
+- [@fromanoel](https://github.com/fromanoel) – Backend: desenvolvimento e integração dos microsserviços, configuração do Gateway e do Eureka Server, e organização da documentação com Swagger.
+- [@madu-silva](https://github.com/madu-silva) – Backend: integração com Firebase, geração do token JWT.
+- [IsabelaQM](https://github.com/IsabelaQM) – Frontend: desenvolvimento da aplicação em React e React Native.
+- [@samylledutra](https://github.com/samylledutra) – Frontend: desenvolvimento da aplicação em React e React Native.
+- [@stclaire1](https://github.com/stclaire1) – Frontend: desenvolvimento da aplicação em React e React Native.
 
 # Tecnologias Utilizadas
 
@@ -51,6 +63,8 @@ O projeto está organizado nas seguintes pastas:
 - `model`: Contém as classes de modelo que representam os dados.
 - `repository`: Contém as interfaces de repositório para acesso ao banco de dados.
 - `service`: Contém as classes de serviço que implementam a lógica de negócios.
+- `converter`: Contém a lógica de conversão dos DTO's para Models, e vice-versa.
+- `config`: Contém a configuração da documentação do Swagger (OpenAPI).
   
 ```bash
   +---main
