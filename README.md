@@ -1,6 +1,8 @@
 # App Ensino Matemática Backend Resposta
 
-Este é o backend de um aplicativo de ensino de matemática feito para a comunidade externa, responsável por gerenciar as respostas dos alunos e as rodadas de perguntas.
+Este é o backend de um aplicativo educacional de matemática voltado para a comunidade externa. Ele é responsável por gerenciar, criar, atualizar e consultar recursos relacionados às rodadas de questões e ao ranking dos alunos, apoiando o acompanhamento do desempenho e da evolução dos participantes.
+
+O sistema é composto por múltiplos microsserviços que se complementam, incluindo os serviços de 👉 [questões](https://github.com/projetos-si-iftm/app-matematica-backend-questao) e 👉 [usuários](https://github.com/projetos-si-iftm/app-matematica-backend), responsáveis respectivamente pelo gerenciamento do banco de questões e das informações dos alunos, professores e turma.
 
 ## Sumário
 
@@ -11,12 +13,28 @@ Este é o backend de um aplicativo de ensino de matemática feito para a comunid
 - [Licença](#licença)
 
 
-## Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 - Java
 - Spring Boot
 - Spring Data MongoDB
 - Lombok
+
+## Microsserviços e Infraestrutura
+- Spring Cloud Gateway
+- Eureka Server
+
+## Biblioteca Compartilhada DTO's
+
+Este projeto utiliza uma biblioteca compartilhada de DTOs desenvolvida especialmente para padronizar a comunicação entre os microsserviços do sistema.
+Essa biblioteca contém as classes de transferência de dados (DTOs) utilizadas por todos os serviços — como usuário, questão e resposta — garantindo consistência nas trocas de informações e facilitando a manutenção.
+
+👉 [Repositório da biblioteca de DTO's](https://github.com/fromanoel/app-matematica-dtos)
+
+## Documentação 
+- Swagger (OpenAPI)
+
+## Banco de Dados
 - MongoDB
 
 ### Por que utilizar MongoDB (banco NOSQL)?
@@ -25,7 +43,7 @@ Este é o backend de um aplicativo de ensino de matemática feito para a comunid
 - MongoDB é altamente flexível quando se trata de salvar dados. Não há necessidade de seguir um esquema fixo. Se você quiser adicionar novos campos ou novos tipos de dados (por exemplo, um novo tipo de pergunta ou uma nova categoria), você pode fazer isso sem grandes mudanças ou migrações no banco de dados. Isso permite que você se adapte rapidamente a novos requisitos ou alterações no modelo de dados.
 - MongoDB é projetado para otimizar o desempenho em grandes volumes de dados, especialmente quando se trata de leitura e gravação rápidas. Ele oferece recursos como índices para acelerar as buscas, o que é essencial em sistemas que lidam com muitos documentos, como um banco de respostas de questões.
 
-## Estrutura do Projeto
+# Estrutura do Projeto
 
 O projeto está organizado nas seguintes pastas:
 
@@ -35,42 +53,42 @@ O projeto está organizado nas seguintes pastas:
 - `service`: Contém as classes de serviço que implementam a lógica de negócios.
   
 ```bash
-  src/
-├── main/
-│   ├── java/
-│   │   └── br/
-│   │       └── edu/
-│   │           └── iftm/
-│   │               └── app_ensino_matematica_backend_resposta/
-│   │                   ├── config/
-│   │                   │   └── WebConfig.java
-│   │                   ├── controller/
-│   │                   │   └── RodadaController.java
-│   │                   ├── model/
-│   │                   │   ├── Resposta.java
-│   │                   │   ├── Rodada.java
-│   │                   │   └── DTO/
-│   │                   │       └── RodadaDTO.java
-│   │                   │       └── RodadaRequest.java
-│   │                   ├── repository/
-│   │                   │      └── RodadaDTO.java
-│   │                   ├── service/
-│   │                   │      └── RodadaService.java
-│   │                   └── AppEnsinoMatematicaBackendRespostaoApplication.java
-│   └── resources/
-│       ├── application.yml
-│       
-│           
-└── test/
-    └── java/
-        └── br/
-            └── edu/
-                └── iftm/
-                    └── app_ensino_matematica_backend_resposta/
-                        └── AppEnsinoMatematicaBackendRespostaApplicationTests.java
+  +---main
+|   +---java
+|   |   \---br
+|   |       \---edu
+|   |           \---iftm
+|   |               \---app_ensino_matematica_backend_resposta
+|   |                   |   AppEnsinoMatematicaBackendRespostaApplication.java
+|   |                   |   
+|   |                   +---config
+|   |                   |       SwaggerConfig.java
+|   |                   |       
+|   |                   +---controller
+|   |                   |       RankingController.java
+|   |                   |       RodadaController.java
+|   |                   |       
+|   |                   +---converter
+|   |                   |       RespostaConverter.java
+|   |                   |       RodadaConverter.java
+|   |                   |       
+|   |                   +---model
+|   |                   |       Resposta.java
+|   |                   |       Rodada.java
+|   |                   |       
+|   |                   +---repository
+|   |                   |       RodadaRepository.java
+|   |                   |       
+|   |                   \---service
+|   |                           RankingService.java
+|   |                           RodadaService.java
+|   |
+|   \---resources
+|           application.yml
+
 ```
 
-## Configuração do Ambiente
+# Configuração do Ambiente
 
 ### Pré-requisitos
 
@@ -80,9 +98,15 @@ O projeto está organizado nas seguintes pastas:
 
 ### Configuração do MongoDB
 
-Certifique-se de que o MongoDB esteja em execução e configurado corretamente. Você pode ajustar as configurações de conexão no arquivo `application.properties`.
+Certifique-se de que o MongoDB esteja em execução e configurado corretamente. Você pode ajustar as configurações de conexão no arquivo `application.yml`.
 
 ### Compilação e Execução
+
+Antes de iniciar este serviço, certifique-se de que os seguintes projetos estejam rodando:
+
+[Eureka Server](https://github.com/projetos-si-iftm/app-matematica-eureka) - responsável pelo service discovery
+
+[Gateway](https://github.com/projetos-si-iftm/app-matematica-backend-gateway) - responsável pelo roteamento das requisições
 
 Para compilar e executar o projeto, use os seguintes comandos:
 
@@ -91,116 +115,10 @@ mvn clean install
 mvn spring-boot:run
 ```
 # Endpoints
-## Rodada
 
-### POST /report/round
-- **Descrição**:  Salva uma nova rodada com a lista de respostas.
-- **Resposta**:
-- Status: 201 CREATED
-- Corpo da resposta: 
-```json
-{
-    "rodada": {
-        "idCategoria": "123e4567-e89b-12d3-a456-426614174000",
-        "idAluno": "123e4567-e89b-12d3-a456-426614174001",
-        "dificuldade": 1,
-        "pontuacao": 85
-    },
-    "respostas": [
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-            "isCorrect": false
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-            "isCorrect": false
-        },
-        {
-            "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-            "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-            "isCorrect": true
-        }
-    ]
-}
-```
+A documentação completa está disponível via Swagger
+👉 [Acesse a documentação Swagger aqui](https://app-matematica-backend-respost-af372f52044d.herokuapp.com/swagger-ui/index.html)
 
-### GET /report/round/{id_rodada}
-- **Descrição**: Obtém uma rodada pelo ID.
-- **Parâmetros**:
-- `id_rodada` (UUID): ID da rodada.
-- **Resposta**:
-- Status: 200 OK
-- Corpo da resposta:
-  
-```json
-  [
-        {
-        "id_rodada": "123e4567-e89b-12d3-a456-426614174001",
-        "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
-        "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
-        "dificuldade": 1,
-        "pontuacao": 85,
-        "respostas": [
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-                "isCorrect": false
-            },
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-                "isCorrect": false
-            },
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-                "isCorrect": true
-            }
-        ]
-    }
-]
-```
-
-### GET /report/round/search 
-- Descrição: Busca rodadas por categoria e dificuldade.
-- **Parâmetros**:
-- `id_categoria` (UUID): ID da categoria.
-- `dificuldade` (int): Nível de dificuldade.
-- **Exemplo de requisição**: /report/round/search?id_categoria={id_categoria}&dificuldade={dificuldade}
-- **Resposta**:
-- Status: 200 OK
-- Corpo da Resposta:
-```json
-    [
-        {
-        "id_rodada": "123e4567-e89b-12d3-a456-426614174001",
-        "id_categoria": "123e4567-e89b-12d3-a456-426614174000",
-        "id_aluno": "223e4567-e89b-12d3-a456-426614174001",
-        "dificuldade": 1,
-        "pontuacao": 85,
-        "respostas": [
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174000",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174002",
-                "isCorrect": false
-            },
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174004",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174006",
-                "isCorrect": false
-            },
-            {
-                "id_resposta": "223e4567-e89b-12d3-a456-426614174008",
-                "id_questao": "223e4567-e89b-12d3-a456-426614174010",
-                "isCorrect": true
-            }
-        ]
-    }
-]
-```
-
-## Licença
+# Licença
 
 Este projeto está licenciado sob a Licença Apache 2.0. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
